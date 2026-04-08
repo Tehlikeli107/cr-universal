@@ -1384,3 +1384,33 @@ Farkli MLP boyutlari icin de ayni N_crit mi?
 Farkli optimizerlar icin de sigmoidal mi?
 N_crit = fonksiyonun mi, verinin mi, yoksa OGRENICININ (MLP) mi ozelligi?"
 
+
+
+
+## Iterasyon 77: N_crit MODEL BOYUTUNA BAGLI
+
+### SONUC: N_crit model kapasitesiyle AZALIYOR
+Small(32): N_crit ~ 445
+Med(128):  N_crit ~ 323
+Large(512): N_crit ~ 240
+
+Fark 61%: model-bagimsiz DEGIL.
+Buyuk model fonksiyonu daha az ornekle ogrenebiliyor.
+
+## Iterasyon 78: b TABANININ UNIVERSALLIGI
+
+### DENEY: 3 model x k=2,3 sigmoid N_crit fit
+k=2->k=3 orani (= b proxy):
+  Small(32):  1349/411 = 3.28
+  Med(128):   1218/264 = 4.61
+  Large(512):  922/256 = 3.60
+Ortalama b ~ 3.8, aralik 3.28-4.61
+
+FORMULA: N_crit(model, k) ~ a(model) * 3.8^k
+  a(small) ~ 30, a(med) ~ 15, a(large) ~ 10
+
+### DOGMUS SORU:
+"Faz gecisi kritik usselini (beta) olcebilir miyiz?
+N_crit yakininda: mt_corr ~ |N - N_crit|^beta
+Eger beta evrensel (k ve model bagimsiz): istatistiksel mekanik analoji tam.
+Bu yeniden normalize grubu gibi -- farkli sistemler ayni kritik ussel."
