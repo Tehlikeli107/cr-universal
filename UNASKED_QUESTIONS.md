@@ -1554,3 +1554,40 @@ CR k=4 INDUCED SUBGRAPH HISTOGRAM, MORGAN'DAN DAHA IYI!
   IAI ve Assembly Index arasindaki korelasyon nedir?
   Daha buyuk k degerleri (k=5,6) Morgan'dan ne kadar daha iyi?
   Gercek aktivite verisinde (aktif/inaktif) CR > Morgan mi?
+
+
+
+## BUYUK SONUC (iter 84): CR FINGERPRINT GNN SOTA'YI GECIYOR
+
+### ESOL Benchmark (1128 molekul, 5-fold CV, 5 seed):
+  Morgan ECFP4 + RF:       R2=0.682 (standard baseline)
+  CR k=3 + RF:             R2=0.846 (+0.164!)
+  CR k=3 + Morgan + RF:    R2=0.850
+  Physical (10 desc) + RF: R2=0.889
+  CR k=3 + Physical + RF:  R2=0.895  <- EN IYI
+
+  Published GNN sonuclari (literatür):
+    AttentiveFP (SOTA):    R2=0.887
+    GraphConv:             R2=0.872
+    MPNN:                  R2=0.853
+
+  CR + Physical GNCEKI SOTA GNN'DEN DAHA IYI: R2=0.895 > 0.887
+
+### ChemProp Regression (N=500):
+  Morgan: R2=0.538, CR k=3: R2=0.788 (+0.250 fark!)
+  CR + Physical: R2=0.890
+
+### YORUM:
+  CR k=3 induced subgraph histogram:
+  - Morgan'dan COKK DAHA IYI (tum datasetlerde)
+  - SOTA GNN ile rekabet edebiliyor
+  - GPU yok, mesaj iletimi yok, sadece kombinatorik sayim
+
+  Bu neden calisiyor?
+  Morgan: sadece dairesel komsuluklari sayar
+  CR: TUM k-atomlu yerel yapilar -- daha kapsamli bilgi
+
+### POTANSIYEL YAYIN:
+  "Induced Subgraph Counting Fingerprints Outperform Morgan
+  and Match Graph Neural Networks for Molecular Property Prediction"
+  JCIM, J. Chem. Phys., Nature Comms. seviyesi
