@@ -1414,3 +1414,46 @@ FORMULA: N_crit(model, k) ~ a(model) * 3.8^k
 N_crit yakininda: mt_corr ~ |N - N_crit|^beta
 Eger beta evrensel (k ve model bagimsiz): istatistiksel mekanik analoji tam.
 Bu yeniden normalize grubu gibi -- farkli sistemler ayni kritik ussel."
+
+
+
+## Iterasyon 79: KRITIK USSEL BETA -- EVRENSEL DEGIL
+
+beta(k=2) = 0.160, beta(k=3) = 0.049 -> farkli (%107)
+NOT: beta k'ya baglidir, evrensel degil.
+PAC learning/VC dimension teorisi yeniden kesfedildi. Verimli degil.
+
+## Iterasyon 80: N_crit vs CAI -- 2 BAGIMSIZ BOYUT MU?
+
+### DENEY: 12 fonksiyon, CAI ve mt@N=300 olculdu
+Spearman(CAI, mt@300) = -0.888 (p=0.0001) -> YUKSEK KORELASYON
+
+Ama ANLASMAYAN OUTLIERLAR:
+  step:    CAI=834 (yuksek) ama mt@300=0.894 (dusuk N_crit!) -> CELISIK
+  3parity: CAI=738 (orta)   ama mt@300=0.241 (yuksek N_crit!) -> CELISIK
+  xor:     CAI=668 (orta)   ama mt@300=0.469 (orta N_crit)
+
+### YENI ANLASMA: 2 FARKLI BOYUT:
+  Boyut 1 (CAI): OGRENME HIZI -- gradient landscape zorluğu
+  Boyut 2 (N_crit): COZUMUN BELiRSiZLiGi -- kac farkli cozum var
+
+step:
+  Yuksek CAI: step noktasini bulmak gec suruyor
+  Dusuk N_crit: bir kez yeterli veri var, tek cozum var (hepsi ayni step'i buluyor)
+
+3parity:
+  Orta CAI: ogrenilmesi o kadar zor degil
+  Yuksek N_crit: az veriyle model A dim0-2 etkile§imini ogrenirken
+  model B dim1-2'yi ogreniyor -> FARKLI COZUMLER -> N_crit yuksek
+
+### YORUM:
+  CAI = "gradient landscape'in pürüzlülüğü"
+  N_crit = "cozum uzayinin belirsizliği"
+
+Bunlar FARKLI SEYLER: rho=-0.888 yuksek ama %100 degil.
+Ikisi birlikte "fonksiyon karmasikligi" nin 2D yorumunu veriyor.
+
+### DOGMUS SORU:
+"CAI yuksek + N_crit dusuk fonksiyonlar neden var?
+Ve CAI orta + N_crit yuksek fonksiyonlar neden var?
+Aralarindaki geometrik fark: gradient landscape vs solution space"
