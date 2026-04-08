@@ -1342,3 +1342,45 @@ N >= N_crit: tek fonksiyon (belirli)
 Bu faz gecisinin DERECESI ne? (1. dereceden mi, 2. dereceden mi?)
 Ve 2.87 sabiti UNIVERSALMI yoksa MLP mimarisine mi ozgu?"
 
+
+
+## Iterasyon 76: FAZ GECISI DOGRULANDI -- OGRENME SIGMOIDAL
+
+### GOZLEM (iter 75): N_crit ustel buyuyor
+### SORU: Egri sigmoidal mi (faz gecisi) yoksa lineer mi?
+### HIPOTEZ: mt_corr(N) sigmoid sekilli -> faz gecisi var
+
+### DENEY: k=2 ve k=3 icin 14 N degeri, egri sekli analizi
+
+### SONUC:
+k=2 (XOR):
+  mt_corr(N) verileri:
+    N=50: 0.23, N=100: 0.37, N=200: 0.47, N=500: 0.60
+    N=1000: 0.79, N=2000: 0.89, N=3000: 0.92, N=5000: 0.95
+  Sigmoid fit: R^2=0.943
+  Linear fit:  R^2=0.666
+  KRITIK N ~ 352
+
+k=3 (3-parity):
+  N=100: 0.03, N=500: 0.33, N=1000: 0.45, N=2000: 0.66
+  N=3000: 0.76, N=5000: 0.85
+  Sigmoid fit: R^2=0.889
+  Linear fit:  R^2=0.808
+  KRITIK N ~ 1397
+
+ORAN: 1397/352 ~ 4x (her boyut ~4x carpiyor, sadece iter75'ten 2.87 deil)
+
+### FAZ GECISI FIZIGI:
+N < N_crit: "sivi faz" -> cok fonksiyon, modeller anlasmiyor
+N = N_crit: "kristalleme noktasi" -> hizli donusum
+N > N_crit: "kristal faz" -> tek fonksiyon, modeller tam ayni
+
+Sigmoid karakteri = 2. DERECE FAZ GECISI (kesiksiz, 1. turev max, 2. turev0)
+Eger keskin atlama olsaydi: 1. derece.
+
+### DOGMUS SORU:
+"Bu N_crit ~ 4^k iliskisi UNIVERSALMI?
+Farkli MLP boyutlari icin de ayni N_crit mi?
+Farkli optimizerlar icin de sigmoidal mi?
+N_crit = fonksiyonun mi, verinin mi, yoksa OGRENICININ (MLP) mi ozelligi?"
+
